@@ -39,7 +39,10 @@ class View(tk.Tk):
         self.label_diagonaal = tk.Label(self, text="")
         self.label_diagonaal.pack()
 
-    def arvuta_kujund(self):
+        # Võimaldab arvutada ka Enter klahvi vajutamisega
+        self.bind("<Return>", self.arvuta_kujund)
+
+    def arvuta_kujund(self, event=None):
         try:
             pikkus_str = self.entry_pikkus.get()
             laius_str = self.entry_laius.get()
@@ -48,10 +51,8 @@ class View(tk.Tk):
             if not (pikkus_str and laius_str and korgus_str):
                 raise ValueError("Kõik väljad peavad olema täidetud.")
 
-            if not (pikkus_str.replace('.', '', 1).isdigit() and laius_str.replace('.', '',
-                                                                                   1).isdigit() and korgus_str.replace(
-                    '.', '', 1).isdigit()):
-                raise ValueError("Kõik mõõtmed peavad olema positiivsed arvud.")
+            if not (pikkus_str.replace('.', '', 1).isdigit() and laius_str.replace('.', '', 1).isdigit() and korgus_str.replace('.', '', 1).isdigit()):
+                raise ValueError("Kõik mõõtmed peavad olema arvud.")
 
             pikkus = float(pikkus_str)
             laius = float(laius_str)
